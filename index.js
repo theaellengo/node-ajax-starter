@@ -63,7 +63,15 @@ app.get('/getStudents', function(req, res) {
 });
 
 app.post('/addStudent', function(req, res) {
-  // TODO
+  var student = {
+    name: req.body.name,
+    id: req.body.id,
+    img: `img/${req.body.gender}.png`
+  }
+
+  students.push(student)
+
+  res.status(200).send(student)
 })
 
 /**

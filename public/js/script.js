@@ -1,10 +1,6 @@
 $(document).ready(() => {
-  $.get('getStudents', (data, status) => {
-    console.log(data)
-    
-    var studentListContainer = $('#studentList')
 
-    data.forEach((item, i) => {
+  function addStudentDiv(item, parentDiv) {
       var rowDiv = document.createElement('div')
       var imgCol = document.createElement('div')
       var nameCol = document.createElement('div')
@@ -28,11 +24,32 @@ $(document).ready(() => {
       rowDiv.append(imgCol)
       rowDiv.append(nameCol)
 
-      studentListContainer.append(rowDiv)
+      parentDiv.append(rowDiv)
+  }
+
+  $.get('getStudents', (data, status) => {
+    var studentListContainer = $('#studentList')
+
+    data.forEach((item, i) => {
+      addStudentDiv(item, studentListContainer)
     })
 
     $('#addStudent').click(() => {
-      var
+      var name = $('#name').val()
+      var idnum = $('#idnum').val()
+      var gender = $("input[name='gender']:checked").val()
+
+      var newStudent = {
+        name: name,
+        id: idnum,
+        gender: gender
+      }
+
+      $.post('addStudent', newStudent, (data, status) => {
+        var studentListContainer = $('#studentList')
+        addStudentDiv(data, studentListContainer)
+      })
+
     })
   })
 })
