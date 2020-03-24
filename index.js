@@ -59,7 +59,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/getStudents', function(req, res) {
-  // TODO
+  res.status(200).send(students);
 });
 
 app.post('/addStudent', function(req, res) {
